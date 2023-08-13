@@ -8,14 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var tapCount: Int = 0
+    @State private var name = ""
+    
+    let meals = ["Tempe", "Bakso", "Pisang"]
+    @State private var selectedMeal = "Tempe"
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            Form {
+                Section {
+                    
+                    TextField("Enter your name", text: $name)
+                    
+                    Text("Hello, what can I get for you?!")
+                    
+                    Picker("Select your meal", selection: $selectedMeal) {
+                        ForEach(meals, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    
+                    Button("How many meals: \(tapCount)") {
+                        tapCount += 1
+                    }
+                    
+                    
+                    Text("Hello, your name is \(name) and you want \(tapCount) \(selectedMeal)")
+                    
+                    
+                }
+            }
+            .navigationTitle("Order Meal")
+            .navigationBarTitleDisplayMode(.automatic)
         }
-        .padding()
     }
 }
 
